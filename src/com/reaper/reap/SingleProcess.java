@@ -2,11 +2,10 @@ package com.reaper.reap;
 
 import static org.junit.Assert.fail;
 
-import java.io.File;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,16 +14,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.reaper.common.AccountInfo;
-import com.reaper.common.CQZDMDLL;
-import com.reaper.common.ChkImgProcessor;
+
 
 public class SingleProcess {
+	private static final Logger log = Logger.getLogger(SingleProcess.class);
+	
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -39,8 +37,11 @@ public class SingleProcess {
 
   @Test
   public void testHuaweiLogin(AccountInfo accountInfo) throws Exception {
+	  log.debug("account " + accountInfo.getAccountName() + " process starts ");
+	  
     driver.get(baseUrl + "/");
     driver.findElement(By.linkText("[登录]")).click();
+    
     //下载验证码图片，此方式不可用
 //    ChkImgProcessor.downloadImg(driver.findElement(By.id("randomCodeImgImgmgImg")).getAttribute("src"), "img\\huawei.gif");
 //    String checkingCode = CQZDMDLL.getCheckResult("img\\huawei.gif");
