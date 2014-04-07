@@ -1,6 +1,5 @@
 package com.reaper.reap;
 
-
 import static org.junit.Assert.fail;
 
 import java.io.File;
@@ -21,11 +20,11 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import com.reaper.common.AccountInfo;
 import com.reaper.common.CQZDMDLL;
 import com.reaper.common.ChkImgProcessor;
 
-
-public class HuaweiLogin {
+public class SingleProcess {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -39,35 +38,37 @@ public class HuaweiLogin {
   }
 
   @Test
-  public void testHuaweiLogin() throws Exception {
+  public void testHuaweiLogin(AccountInfo accountInfo) throws Exception {
     driver.get(baseUrl + "/");
     driver.findElement(By.linkText("[登录]")).click();
-    ChkImgProcessor.downloadImg(driver.findElement(By.id("randomCodeImg")).getAttribute("src"), "img\\huawei.gif");
-    String checkingCode = CQZDMDLL.getCheckResult("img\\huawei.gif");
+    //下载验证码图片，此方式不可用
+//    ChkImgProcessor.downloadImg(driver.findElement(By.id("randomCodeImgImgmgImg")).getAttribute("src"), "img\\huawei.gif");
+//    String checkingCode = CQZDMDLL.getCheckResult("img\\huawei.gif");
     
     Set<Cookie> allCookies = driver.manage().getCookies();
 
-    for (Cookie loadedCookie : allCookies) {
-
-       System.out.println(String.format("%s -> %s",loadedCookie.getName(), loadedCookie.getValue()));
-       System.out.println("-------------");
-
-    }
+    //打印出所有cookie
+//    for (Cookie loadedCookie : allCookies) {
+//
+//       System.out.println(String.format("%s -> %s",loadedCookie.getName(), loadedCookie.getValue()));
+//       System.out.println("-------------");
+//
+//    }
     
-    File scrnsht =
-    		((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-    		FileUtils.copyFile(scrnsht, new
-    		File("img\\screenShot.gif"));
+//    File scrnsht =
+//    		((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+//    		FileUtils.copyFile(scrnsht, new
+//    		File("img\\screenShot.gif"));
     
     driver.findElement(By.id("login_userName")).clear();
-    driver.findElement(By.id("login_userName")).sendKeys("yukim.2008@163.com");
+    driver.findElement(By.id("login_userName")).sendKeys(accountInfo.getAccountName());
     driver.findElement(By.id("login_password")).clear();
-    driver.findElement(By.id("login_password")).sendKeys("123456789");
+    driver.findElement(By.id("login_password")).sendKeys(accountInfo.getPwd());
     driver.findElement(By.cssSelector("div.verify.vam")).click();
     
 
     driver.findElement(By.id("randomCode")).clear();
-    driver.findElement(By.id("randomCode")).sendKeys(checkingCode);
+    driver.findElement(By.id("randomCode")).sendKeys("rrrr");
     driver.findElement(By.cssSelector("input.button-login")).click();
     driver.findElement(By.id("loginSubmitForm")).click();
   }

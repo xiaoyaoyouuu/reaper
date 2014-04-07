@@ -5,6 +5,6 @@
 	<classpathentry kind="lib" path="D:/software/selenium/selenium-server-standalone-2.41.0.jar" sourcepath="D:/software/selenium/selenium-server-standalone-2.41.0.jar"/>
 	<classpathentry kind="lib" path="lib/jna.jar"/>
 	<classpathentry kind="lib" path="lib/JNative.jar"/>
-	<classpathentry kind="lib" path="C:/Documents and Settings/Administrator/桌面/jxl.jar"/>
+	<classpathentry kind="lib" path="lib/jxl.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
